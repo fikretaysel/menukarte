@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Annotation\Route;
+
+class MailerController extends AbstractController
+{
+    /**
+     * @Route("/mail", name="mail")
+     */
+    public function sendEmail(MailerInterface $mailer): Response
+    {
+        $email = (new Email())
+            ->from('tisch1@menukarte.com')
+            ->to('kellner@menukarte.com')
+            ->subject('Bestellung')
+            ->text('Extra Pommes');
+
+        $mailer->send($email);
+
+        return new Response('E-Mail versendet');
+    }
+}

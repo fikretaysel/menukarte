@@ -1,0 +1,21 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+parameters:
+    bilder_ordner: '%kernel.project_dir%/public/bilder'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Service\GerichtService:
+        arguments:
+            $bilderOrdner: '%bilder_ordner%'
